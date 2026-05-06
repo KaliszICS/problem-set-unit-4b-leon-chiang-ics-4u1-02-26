@@ -7,7 +7,7 @@
 import java.util.ArrayList;
 public class TileStack {
 
-    private ArrayList<String> stack;
+    private ArrayList<String> stack = new ArrayList<String>();
 
     /**
      * Constructor for TileStack class given a String array 

@@ -6,8 +6,8 @@
 
 public class GameBoard {
 
-    private String[][] Board;
-    private GamePiece[][] Board2;
+    private String[][] board;
+    private GamePiece[][] board2;
 
 
     /**
@@ -16,69 +16,69 @@ public class GameBoard {
 
 
     public GameBoard() {
-        this.Board = new String[5][5];
-        for (int i = 0; (this.Board).length>i; i++) {
-            for (int j = 0; j < (this.Board[i]).length; j++) {
-                this.Board[i][j] = "Empty";
+        this.board = new String[5][5];
+        for (int i = 0; (this.board).length>i; i++) {
+            for (int j = 0; j < (this.board[i]).length; j++) {
+                this.board[i][j] = "Empty";
             }
         }
 
-        this.Board[0][0] = "Start";
-        this.Board[4][4] = "End";
-        this.Board[0][3] = "Bonus";
-        this.Board[1][0] = "Penalty";
-        this.Board[1][2] = "Bonus";
-        this.Board[2][1] = "Penalty";
-        this.Board[3][0] = "Bonus";
-        this.Board[3][4] = "Bonus";
-        this.Board[3][2] = "Penalty";
-        this.Board[4][3] = "Penalty";
-        this.Board2 = new GamePiece[5][5];
+        this.board[0][0] = "Start";
+        this.board[4][4] = "End";
+        this.board[0][3] = "Bonus";
+        this.board[1][0] = "Penalty";
+        this.board[1][2] = "Bonus";
+        this.board[2][1] = "Penalty";
+        this.board[3][0] = "Bonus";
+        this.board[3][4] = "Bonus";
+        this.board[3][2] = "Penalty";
+        this.board[4][3] = "Penalty";
+        this.board2 = new GamePiece[5][5];
     }
 
     /**
-     * Constructor for the GameBoard class given a Board in the form of a 2D String array
-     * @param Board 2D array board that has rows and columns
-     * @throws NullPointerException If Board is null
-     * @throws IllegalArgumentException If Board has rows of different sizes
+     * Constructor for the GameBoard class given a board in the form of a 2D String array
+     * @param board 2D array board that has rows and columns
+     * @throws NullPointerException If board is null
+     * @throws IllegalArgumentException If board has rows of different sizes
      */
 
-    public GameBoard (String[][] Board) throws NullPointerException, IllegalArgumentException {
-        if (Board == null) {
+    public GameBoard (String[][] board) throws NullPointerException, IllegalArgumentException {
+        if (board == null) {
             throw new NullPointerException("Board cannot be null");
         }
-        if (Board.length >=1 && Board[0].length >=1) {
+        if (board.length <= 1 && board[0].length <= 1) {
             throw new IllegalArgumentException("Game board must be of valid size greater then 1x1");
         }
 
-        for (String[] i : Board) {
-            if (i.length != Board[0].length) {
+        for (String[] i : board) {
+            if (i.length != board[0].length) {
                 throw new IllegalArgumentException ("Columns sizes must all be equal");
             }
         }
 
-        this.Board = Board;
-        this.Board2= new GamePiece [Board.length][Board[0].length];
+        this.board = board;
+        this.board2= new GamePiece[board.length][board[0].length];
     }
 
     /**
      * Method to get the number of rows in the board
-     * @param Board 2D String array with rows and columns
+     * @param board 2D String array with rows and columns
      * @return The number of rows in the board as an integer
      */
 
-    public int getRows (String[][] Board) {
-        return (this.Board).length;
+    public int getRows (String[][] board) {
+        return (this.board).length;
     }
 
     /**
      * Method to get the number of column in the board
-     * @param Board 2D String array with rows and columns
+     * @param board 2D String array with rows and columns
      * @return The number of columns in the board as an integer
      */
 
-    public int getColumns (String[][] Board) {
-        return (this.Board[0]).length;
+    public int getColumns (String[][] board) {
+        return (this.board[0]).length;
     }
 
     /**
@@ -92,7 +92,7 @@ public class GameBoard {
 
     public String getTile (int row, int col) {
         try {
-            return this.Board[row-1][col-1];
+            return this.board[row-1][col-1];
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Row and Column must be valid");
@@ -110,7 +110,7 @@ public class GameBoard {
 
     public void setTile (int row, int col, String type){
         try {
-            this.Board[row-1][col-1]=type;
+            this.board[row-1][col-1]=type;
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Row and Column must be valid");
@@ -132,7 +132,7 @@ public class GameBoard {
         }
 
         try {
-            this.Board2[row-1][col-1] = piece;
+            this.board2[row-1][col-1] = piece;
         }
         catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Row and Column must be valid");
@@ -150,11 +150,11 @@ public class GameBoard {
 
     public void removePiece (int row, int col) throws NullPointerException {
         
-        if (this.Board[row-1][col-1] == null) {
+        if (this.board[row-1][col-1] == null) {
             throw new NullPointerException ("Piece must be present on this tile");
         }
         try {
-            this.Board2[row-1][col-1] = null;
+            this.board2[row-1][col-1] = null;
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Row and Column must be valid");
@@ -172,10 +172,10 @@ public class GameBoard {
 
     public GamePiece getPiece (int row, int col) throws IndexOutOfBoundsException {
         try {
-            if (this.Board2[row-1][col-1] == null) {
+            if (this.board2[row-1][col-1] == null) {
                 return null;
             }
-            GamePiece piece = this.Board2[row-1][col-1];
+            GamePiece piece = this.board2[row-1][col-1];
             return piece;
         }
         catch (IndexOutOfBoundsException e) {
@@ -192,17 +192,13 @@ public class GameBoard {
      * @throws IndexOutOfBoundsException Row and column does not exist on the board
      */
 
-    public boolean hasPiece(int row, int col) {
+    public boolean hasPiece(int row, int col) throws IndexOutOfBoundsException {
         try {
-            if (this.Board2[row-1][col-1] == null) {
-            return false;
-        }
+            return !(this.board2[row - 1][col - 1] == null);
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("Row and Column must be valid");
+            throw new IndexOutOfBoundsException("Row and Column must be valid");
         }
-
-        return true;
     }
 
     /**
@@ -210,18 +206,13 @@ public class GameBoard {
      * @param tiles Array of strings with strings that tiles of the board are being replaced by left to right, up to down
      */
 
-    public void fillFrom (String[] tiles) {
-        int count = tiles.length;
-        if (count<=0) {
-            for (int i = 0; i < this.Board.length; i++) {
-                for (int j = 0; j < this.Board[i].length; j++) {
-                    this.Board[i][j] = tiles[tiles.length - count];
-                    count--;
-                    if (count <= 0) {
-                        j=this.Board[i].length;
-                        i=this.Board.length;
-                    }
-                }
+    public void fillFrom (String[] tiles) throws NullPointerException {
+        if (tiles == null || String.join("", tiles).replaceAll(" ", "").equals("")) {
+            throw new NullPointerException("Array to fill from must not be empty or null");
+        }
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                this.board[i][j] = tiles[((i * this.board[0].length) + j) % tiles.length];
             }
         }
     }
@@ -231,20 +222,20 @@ public class GameBoard {
      */
 
     public void resetBoard() {
-        for (int i = 0; (this.Board).length>i; i++) {
-            for (int j = 0; j < (this.Board[i]).length; j++) {
-                this.Board[i][j] = "Empty";
+        for (int i = 0; this.board.length > i; i++) {
+            for (int j = 0; j < this.board[i].length; j++) {
+                this.board[i][j] = "Empty";
             }
         }
 
-        for (int i = 0; (this.Board2).length>i; i++) {
-            for (int j = 0; j < (this.Board2[i]).length; j++) {
-                this.Board2[i][j] = null;
+        for (int i = 0; this.board2.length > i; i++) {
+            for (int j = 0; j < this.board2[i].length; j++) {
+                this.board2[i][j] = null;
             }
         }
 
-        this.Board[0][0] = "Start";
-        this.Board[4][4] = "End";
+        this.board[0][0] = "Start";
+        this.board[getRows(this.board) - 1][getColumns(this.board) - 1] = "End";
     }
 
     /**
@@ -255,13 +246,13 @@ public class GameBoard {
     @Override
     public String toString() {
         String out = "";
-        for (int i = 0; i < this.Board.length; i++) {
-            for (int j = 0; j < this.Board[0].length; j++) {
-                out += Board[i][j];
-                if (Board2[i][j] != null) {
-                    out += "(" + Board2[i][j].toString() + ")";
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                out += board[i][j];
+                if (board2[i][j] != null) {
+                    out += "(" + board2[i][j].toString() + ")";
                 }
-                out += (j != this.Board[0].length - 1) ? " | " : "\n";
+                out += (j != this.board[0].length - 1) ? " | " : "\n";
             }
         }
         return out;
