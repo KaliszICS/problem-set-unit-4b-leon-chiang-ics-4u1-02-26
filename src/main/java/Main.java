@@ -8,6 +8,7 @@ public class Main {
         Player player = new Player("Frank", 16);
         player.pickUp(board, 2, 1);
         System.out.println(board.toString());
-        player.returnPiece(cat, board, 0, 0);
+        player.returnPiece(cat, board, 2, 1);
+        System.out.println(board);
     }
 }

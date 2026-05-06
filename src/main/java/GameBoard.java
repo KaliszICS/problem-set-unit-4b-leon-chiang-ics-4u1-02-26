@@ -7,7 +7,7 @@
 public class GameBoard {
 
     private String[][] Board;
-    private String[][] Board2;
+    private GamePiece[][] Board2;
 
 
     /**
@@ -33,7 +33,7 @@ public class GameBoard {
         this.Board[3][4] = "Bonus";
         this.Board[3][2] = "Penalty";
         this.Board[4][3] = "Penalty";
-        this.Board2 = new String[5][5];
+        this.Board2 = new GamePiece[5][5];
     }
 
     /**
@@ -47,6 +47,9 @@ public class GameBoard {
         if (Board == null) {
             throw new NullPointerException("Board cannot be null");
         }
+        if (Board.length >=1 && Board[0].length >=1) {
+            throw new IllegalArgumentException("Game board must be of valid size greater then 1x1");
+        }
 
         for (String[] i : Board) {
             if (i.length != Board[0].length) {
@@ -55,7 +58,7 @@ public class GameBoard {
         }
 
         this.Board = Board;
-        this.Board2= new String [Board.length][Board[0].length];
+        this.Board2= new GamePiece [Board.length][Board[0].length];
     }
 
     /**
@@ -129,7 +132,7 @@ public class GameBoard {
         }
 
         try {
-            this.Board2[row-1][col-1] = piece.toString();
+            this.Board2[row-1][col-1] = piece;
         }
         catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Row and Column must be valid");
@@ -172,8 +175,8 @@ public class GameBoard {
             if (this.Board2[row-1][col-1] == null) {
                 return null;
             }
-            String[] piece = this.Board2[row-1][col-1].split(" ");
-            return new GamePiece(piece[1], piece[0], col);
+            GamePiece piece = this.Board2[row-1][col-1];
+            return piece;
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Row and Column must be valid");
@@ -236,7 +239,7 @@ public class GameBoard {
 
         for (int i = 0; (this.Board2).length>i; i++) {
             for (int j = 0; j < (this.Board2[i]).length; j++) {
-                this.Board2[i][j] = "";
+                this.Board2[i][j] = null;
             }
         }
 
@@ -256,7 +259,7 @@ public class GameBoard {
             for (int j = 0; j < this.Board[0].length; j++) {
                 out += Board[i][j];
                 if (Board2[i][j] != null) {
-                    out += "(" + Board2[i][j] + ")";
+                    out += "(" + Board2[i][j].toString() + ")";
                 }
                 out += (j != this.Board[0].length - 1) ? " | " : "\n";
             }
