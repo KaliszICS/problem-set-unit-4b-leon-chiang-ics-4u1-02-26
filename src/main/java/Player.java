@@ -119,7 +119,7 @@ public class Player {
      * @throws NullPointerException If piece does not exist in Player's inventory
      */
 
-    public void returnPiece(GamePiece piece, GameBoard board, int row, int col) throws NullPointerException, IndexOutOfBoundsException {
+    public void returnPiece(GamePiece piece, GameBoard board, int row, int col) throws IndexOutOfBoundsException, NullPointerException {
         System.out.println(piece);
         if (!(this.inventory).contains(piece)) {
             throw new NullPointerException("Piece must exist in Player's inventory");

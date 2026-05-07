@@ -43,7 +43,7 @@ public class GameBoard {
      * @throws IllegalArgumentException If board has rows of different sizes
      */
 
-    public GameBoard (String[][] board) throws NullPointerException, IllegalArgumentException {
+    public GameBoard (String[][] board) throws IllegalArgumentException, NullPointerException {
         if (board == null) {
             throw new NullPointerException("Board cannot be null");
         }
@@ -90,7 +90,7 @@ public class GameBoard {
 
      */
 
-    public String getTile (int row, int col) {
+    public String getTile (int row, int col) throws IndexOutOfBoundsException  {
         try {
             return this.board[row-1][col-1];
         }
@@ -108,7 +108,7 @@ public class GameBoard {
      * @throws IndexOutOfBoundsException If rows and columns do not exist on the board
      */
 
-    public void setTile (int row, int col, String type){
+    public void setTile (int row, int col, String type) throws IndexOutOfBoundsException {
         try {
             this.board[row-1][col-1]=type;
         }
@@ -126,7 +126,7 @@ public class GameBoard {
      * @throws IndexOutOfBoundsException If rows and columns do not exist on the board
      */
 
-    public void placePiece (GamePiece piece, int row, int col) throws NullPointerException {
+    public void placePiece (GamePiece piece, int row, int col) throws IndexOutOfBoundsException, NullPointerException  {
         if (piece == null) {
             throw new NullPointerException ("Piece must exist");
         }
@@ -148,7 +148,7 @@ public class GameBoard {
      * @throws IndexOutOfBoundsException If rows and columns do not exist on the board
      */
 
-    public void removePiece (int row, int col) throws NullPointerException {
+    public void removePiece (int row, int col) throws IndexOutOfBoundsException, NullPointerException  {
         
         if (this.board[row-1][col-1] == null) {
             throw new NullPointerException ("Piece must be present on this tile");

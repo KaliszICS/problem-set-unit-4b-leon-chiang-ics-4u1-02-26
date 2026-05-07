@@ -4,10 +4,10 @@
  * @version 1.0.0
  */
 
-import java.util.ArrayList;
+import java.util.Stack;
 public class TileStack {
 
-    private ArrayList<String> stack = new ArrayList<String>();
+    private Stack<String> stack = new Stack<>();
 
     /**
      * Constructor for TileStack class given a String array 
@@ -15,7 +15,7 @@ public class TileStack {
      */
     public TileStack (String[] stack) {
         for (int i = 0; stack.length > i; i++) {
-            (this.stack).add(stack[i]);
+            (this.stack).push(stack[i]);
         }
     } 
 
@@ -48,12 +48,14 @@ public class TileStack {
     /**
      * Method that adds the provided tile to the top of the stack
      * @param tile Tile being added to the stack
+     * @throws NullPointerException If tile is null
      */
 
-    public void push(String tile) {
-        if (tile != null || tile == "") {
-            (this.stack).add(tile);
+    public void push(String tile) throws NullPointerException {
+        if (tile == null || tile == "") {
+            throw new NullPointerException("Tile must be valid");
         }
+        this.stack.push(tile);
     }
 
     /**
@@ -65,9 +67,7 @@ public class TileStack {
         if ((this.stack).size()<=0) {
             return null;
         }
-        String x = (this.stack).get((this.stack).size()-1);
-        (this.stack).remove((this.stack).size()-1);
-        return x;
+        return this.stack.pop();
     }
 
     /**
@@ -79,8 +79,7 @@ public class TileStack {
         if ((this.stack).size() <= 0) {
             return null;
         }
-
-        return (this.stack).get((this.stack).size()-1);
+        return this.stack.peek();
     }
 
     /**
@@ -89,11 +88,11 @@ public class TileStack {
      */
 
     public String [] removeAll() {
-        if ((this.stack).size() <= 0) {
+         if ((this.stack).size() <= 0) {
             return new String[0];
         }
-        String [] x = (this.stack).toArray(new String[this.stack.size()]);
-        (this.stack).clear();
+        String [] x = getTileStack();
+        this.stack.clear();
         return x;
     }
 
@@ -104,11 +103,15 @@ public class TileStack {
 
     @Override
     public String toString() {
-        String x = "";
-        for (int i = (this.stack).size(); i > 0; i--) {
-            x += (this.stack).get(i) + ", ";
+        if (getTileStack().length == 0) {
+            return "";
         }
-        x.substring(0, (this.stack).size()-2);
-        return x;
+
+        String s = "";
+        String[] tiles = getTileStack();
+        for (int i = tiles.length - 1; i >= 0; i--) {
+            s += tiles[i] + ", ";
+        }
+        return s.substring(0, s.length() - 2) + ".";
     }
 }

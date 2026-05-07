@@ -1,7 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         GameBoard board = new GameBoard();
-        TileStack tilesStack = new TileStack(new String[]{"1", "2", "3", "4"});
+        TileStack tilesStack = new TileStack(new String[]{"1", "2", "3"});
+        for (String i : tilesStack.removeAll()) {
+            System.out.println(i);
+        }
+        System.out.println(tilesStack);
         board.fillFrom(new String[]{"Bonus", "House", "Penalty", "Penalty"});
         GamePiece dog = new GamePiece("Dog", "Green", 849);
         GamePiece cat = new GamePiece("Cat", "Blue", 65);
