@@ -1,0 +1,12 @@
+K(30%): 100
+I(30%): 87
+C(10%): 100
+A(30%): 87
+92.2%
+
+Getters should not have a parameter.
+removePiece should return the peice removed.
+You don't need to throw out of bounds exceptions since they happen automatically
+fillFrom should do nothing instead of throw an exception when empty or null.
+Don't forget to initialize the inventory of the player before adding to the array list.
+Otherwise great work!
